@@ -16,18 +16,6 @@ Base.metadata.create_all(engine)
 @app.on_event("startup")
 def startup_event():
     prepare_database()
-    
-# @app.on_event("/employer")
-# def get_employer():
-#     session = Session()
-#     employers = session.query(Employer).all()
-#     session.close()
-#     return employers
-
-# @app.get("/jobs")
-# def get_jobs():
-#     with Session() as session:
-#         return session.query(Job).all()    
 
 app.mount("/", GraphQLApp(
     schema=schema,

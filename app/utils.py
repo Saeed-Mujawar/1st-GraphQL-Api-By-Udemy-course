@@ -13,8 +13,8 @@ from functools import wraps
 from dotenv import load_dotenv
 import os
 load_dotenv()
-SECRET_KEY = os.getenv("SECRET_KEY")
-ALGORITHM = os.getenv("ALGORITHM")
+SECRET_KEY = os.getenv("SECRET_KEY", "job_board_app_secret!")
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
 TOKEN_EXPIRATION_TIME_MINUTES = int(os.getenv("TOKEN_EXPIRATION_TIME_MINUTES", 15))
 
 def generate_token(email):
@@ -51,11 +51,11 @@ def get_aunthenticated_user(context):
         token = auth_header.split(" ")
 
     if auth_header and token[0] =="Bearer" and len(token) == 2:
-        token = token[1]
+        
        # This is a try-except block that attempts to decode the JWT token. If the token is invalid or expired, it raises appropriate exceptions.
         try:
             #This extracts the payload information from the token.
-            payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])   
+            payload = jwt.decode(token[1], SECRET_KEY, algorithms=[ALGORITHM])   
             # Checks if the current time is greater than the expiration time (exp) extracted from the token payload
             if datetime.now(timezone.utc) > datetime.fromtimestamp(payload['exp'], tz = timezone.utc):
                 raise GraphQLError("Token has expired")
