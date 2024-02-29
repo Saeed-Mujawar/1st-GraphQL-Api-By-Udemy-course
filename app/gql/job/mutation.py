@@ -14,7 +14,7 @@ class AddJob(Mutation):
     job = Field(lambda: JobObject)
 
     @admin_user
-    @staticmethod
+    
     def mutate(root, info,title,  description, employer_id):
         job = Job(title = title , description = description, employer_id = employer_id)
         session = Session()
@@ -34,7 +34,6 @@ class UpdateJob(Mutation):
     job = Field(lambda: JobObject)
 
     @admin_user
-    @staticmethod
     def mutate(root, info, job_id, title = None, description= None, employer_id= None):
         session = Session()
 
@@ -61,7 +60,7 @@ class DeleteJob(Mutation):
     success = Boolean()
 
     @admin_user
-    @staticmethod
+    
     def mutate(root, info, id):
         session = Session()
         job = session.query(Job).filter(Job.id == id).first()
