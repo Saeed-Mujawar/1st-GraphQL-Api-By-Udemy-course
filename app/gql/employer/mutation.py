@@ -15,7 +15,6 @@ class AddEmployer(Mutation):
     employer = Field(lambda: EmployerObject)
 
     @admin_user
-    @staticmethod
     def mutate(root, info,name, contact_email, industry):
         employer = Employer(name = name , contact_email = contact_email, industry = industry)
         session = Session()
@@ -35,7 +34,6 @@ class UpdateEmployer(Mutation):
     employer = Field(lambda: EmployerObject)
 
     @admin_user
-    @staticmethod
     def mutate(root, info, employer_id, name = None, contact_email= None, industry= None):
         session = Session()
 
@@ -61,7 +59,6 @@ class DeleteEmployer(Mutation):
     success = Boolean()
 
     @admin_user
-    @staticmethod
     def mutate(root, info, id):
         session = Session()
         employer = session.query(Employer).filter(Employer.id == id).first()

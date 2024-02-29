@@ -66,7 +66,6 @@ class ApplyToJob(Mutation):
     job_application = Field(lambda:JobApplicationObject)
 
     @authorize_user_by_id
-    @staticmethod
     def mutate(root, info, user_id, job_id):
         session = Session()
         existing_application = session.query(JobApplication).filter(JobApplication.user_id == user_id,
