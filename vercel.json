@@ -5,7 +5,7 @@
             "user": "@vercel/python"
         }
     ],
-    "routers":[
+    "routes":[
         {
             "src":"/(.*)",
             "dest": "main.py"
