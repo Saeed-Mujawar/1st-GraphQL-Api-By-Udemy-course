@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from datetime import datetime, timezone
-# from app.settings.config import SECRET_KEY,ALGORITHM,TOKEN_EXPIRATION_TIME_MINUTES
+from app.settings.config import SECRET_KEY,ALGORITHM,TOKEN_EXPIRATION_TIME_MINUTES
 from graphene import Int
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError
@@ -10,12 +10,12 @@ from app.db.models import User
 import jwt
 from graphql import GraphQLError
 from functools import wraps
-from dotenv import load_dotenv
-import os
-load_dotenv()
-SECRET_KEY = os.getenv("SECRET_KEY", "job_board_app_secret!")
-ALGORITHM = os.getenv("ALGORITHM", "HS256")
-TOKEN_EXPIRATION_TIME_MINUTES = int(os.getenv("TOKEN_EXPIRATION_TIME_MINUTES", 15))
+# from dotenv import load_dotenv
+# import os
+# load_dotenv()
+# SECRET_KEY = os.getenv("SECRET_KEY", "job_board_app_secret!")
+# ALGORITHM = os.getenv("ALGORITHM", "HS256")
+# TOKEN_EXPIRATION_TIME_MINUTES = int(os.getenv("TOKEN_EXPIRATION_TIME_MINUTES", 15))
 
 def generate_token(email):
     # now + token lifespan
@@ -42,8 +42,8 @@ def verify_password(pwd_hash, pwd):
 def get_aunthenticated_user(context):  
     # The context usually contains information about the current request being processed.
     request_object = context.get('request')  
-    #  It extracts the Authorization header from the request headers, which typically contains the JWT token.
     
+    #  It extracts the Authorization header from the request headers, which typically contains the JWT token.
     auth_header = request_object.headers.get('Authorization')   
     token = [None]
     if auth_header:   

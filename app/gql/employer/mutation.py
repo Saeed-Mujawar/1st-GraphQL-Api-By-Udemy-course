@@ -6,7 +6,7 @@ from app.utils import admin_user
 
 
 
-class AddEmployer(Mutation):
+class AddEmployer(Mutation):    
     class Arguments:
         name = String(required = True)
         contact_email = String(required = True)
